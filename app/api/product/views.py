@@ -1,6 +1,4 @@
 from fastapi import APIRouter, Depends,status
-from starlette.routing import Route
-
 from app.models.models import Product
 from .schemas import ProductSchema, ShowProductSchema
 from sqlalchemy.orm import Session

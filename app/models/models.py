@@ -12,3 +12,11 @@ class Product(Base):
     technical_details = Column(String(255))
     image = Column(String(255))
     visible = Column(Boolean, default=True)
+    
+
+class Supplier(Base):
+
+    __tablename__='suppliers'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    
