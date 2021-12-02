@@ -17,14 +17,23 @@ class Product(Base):
 class Supplier(Base):
 
     __tablename__='suppliers'
+
     id = Column(Integer, primary_key=True)
     name = Column(String(45))
     
 
-
 class Category(Base):
 
     __tablename__='categories'
+
     id = Column(Integer, primary_key=True)
     name = Column(String(45))
+
+class PaymentMethod(Base):
+
+    __tablename__='payment_methods'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(45))
+    enable = Column(Boolean, default=True)
     
