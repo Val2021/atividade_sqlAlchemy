@@ -1,30 +1,24 @@
 from fastapi import APIRouter, Depends,status
 from app.models.models import Product
 from .schemas import ProductSchema, ShowProductSchema
-from sqlalchemy.orm import Session
+from app.repositories.product_repository import ProductRepository
 from  typing import List
-from app.db.db import get_db
 
 router = APIRouter()
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
-def create(product: ProductSchema,db:Session =Depends(get_db)):
-    db.add(Product(**product.dict()))
-    db.commit()
+def create(product: ProductSchema, repository: ProductRepository = Depends()):
+    repository.create(Product(**product.dict()))
    
-
 @router.get('/',response_model=List[ShowProductSchema])
-def index(db:Session =Depends(get_db)):
-    return db.query(Product).all()
+def index(repository: ProductRepository = Depends()):
+    return repository.get_all()
 
 @router.put('/{id}')
-def update(id:int,product:ProductSchema,db:Session =Depends(get_db)):
-    query = db.query(Product).filter_by(id=id)
-    query.update(product.dict())
-    db.commit()
-
-
-@router.get('/{id}')
-def show(id:int, db:Session =Depends(get_db)):
-    return db.query(Product).filter_by(id=id).first()
+def update(id:int,product:ProductSchema,repository: ProductRepository = Depends()):
+    repository.update(id,product.dict())
+    
+@router.get('/{id}',response_model=ShowProductSchema) ##ver pq response_model
+def show(id:int, repository: ProductRepository = Depends()):
+    return repository.get_by_id(id)
    
