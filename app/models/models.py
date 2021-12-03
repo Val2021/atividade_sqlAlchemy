@@ -93,7 +93,7 @@ class Customer(Base):
     genre = Column(String(45))
     document_id = Column(String(45))
     birth_date = Column(DateTime())
-    user_id = Column(Integer,ForeignKey('users.id'))
+    # user_id = Column(Integer,ForeignKey('users.id'))
     
 
     

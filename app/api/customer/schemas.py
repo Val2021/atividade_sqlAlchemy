@@ -1,14 +1,20 @@
 from pydantic import BaseModel
 
-class CustomerSchema(BaseModel):
-    
+
+
+
+class UpdateCustomerSchema(BaseModel):
     first_name :str
     last_name :str
     phone_number : str
     genre : str
-    document_id :str
     birth_date :str
-    user_id :int
+    # user_id :int
+
+class CustomerSchema(UpdateCustomerSchema):
+
+    document_id :str
+    
 
 class ShowCustomerSchema(CustomerSchema):
     id: int
