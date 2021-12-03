@@ -1,5 +1,7 @@
 from pydantic import BaseModel
-from sqlalchemy import orm
+
+
+
 
 class CategorySchema(BaseModel):
     name: str

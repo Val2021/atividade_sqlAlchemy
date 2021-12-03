@@ -7,7 +7,6 @@ from app.services.product_discount_service import ProductDiscountService
 from .schemas import ShowProductDiscountSchema, ProductDiscountSchema
 from sqlalchemy.orm import Session
 from  typing import List
-from app.db.db import get_db
 
 router = APIRouter()
 
@@ -17,20 +16,11 @@ router = APIRouter()
 
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
-def create(product_discount: ProductDiscountSchema, repository: ProductDiscountRepository = Depends()):
+def create(product_discount: ProductDiscountSchema, repository: ProductDiscountRepository = Depends(), service:ProductDiscountService = Depends()):
+    service.create_discount(product_discount.product_id,product_discount.payment_method_id)
+    repository.create(ProductDiscount(**product_discount.dict()))
     
-    # query1 = db.query(PaymentMethod).filter_by( id=product_discount.payment_method_id, enabled=True).first( )
-    # if not query1:
-    #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Não poderá ser criado o desconto para essa forma de pagamento")
-        
-    # query = db.query(ProductDiscount).filter_by(product_id = product_discount.product_id, payment_method_id=product_discount.payment_method_id).first()
-    # if  query:
-    #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ja existe um desconto para essa forma de pagamento")
-            
-    # else:
-    #     db.add(ProductDiscount(**product_discount.dict()))
-    #     db.commit()
-
+    
 @router.get('/',response_model=List[ShowProductDiscountSchema])
 def index(repository: ProductDiscountRepository = Depends()):
     return repository.get_all()

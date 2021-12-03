@@ -9,3 +9,7 @@ class PaymentMethodRepository(BaseRepository):
     def __init__(self, session: Session = Depends(get_db)):
         super().__init__(session, PaymentMethod)
 
+    
+    def is_enabled(self, id):
+        query = self.session.query(self.model).filter_by(enabled=True,id=id).first()
+        return query != None

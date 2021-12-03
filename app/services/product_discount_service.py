@@ -15,18 +15,21 @@ class ProductDiscountService:
         self.product_discount_repository = product_discount_repository
         
     def create_discount(self, discount: ProductDiscountSchema):
-        query1 =  payment_method_repository( id=discount.payment_method_id, enabled=True).first( )
-        print("query1",query1)
-        if not query1:
+        if not self.payment_method_repository.is_enabled(discount.payment_method_id):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Não poderá ser criado o desconto para essa forma de pagamento")
-    
-        query = self.product_discount_repository(product_id = discount.product_id, payment_method_id=discount.payment_method_id).first()
-        print("query",query)
-        if  query:
+
+        if not self.product_discount_repository.have_discount(discount.product_id,discount.payment_method_id):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ja existe um desconto para essa forma de pagamento")
         
-        else:
-            self.product_discount_repository.create(ProductDiscount(**discount.dict()))
+        self.product_discount_repository.create(ProductDiscount(**discount.dict()))
+
+
+
+    
+        
+            
+        
+        
             
 
 
