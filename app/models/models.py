@@ -68,7 +68,32 @@ class Coupon(Base):
     limit = Column(Integer())
     type = Column(String(15))
     value = Column(Float(10,2))
+
+class Address(Base):
+
+    __tablename__='addresses'
     
+    id = Column(Integer, primary_key=True)
+    address: Column(String(255))
+    city:Column(String(45))
+    state:Column(String(2))
+    number:Column(String(10))
+    zipcode:Column(String(6))
+    neighbourhood:Column(String(45))
+    primary:Column(Boolean, default=True)
+    customer_id:Column(Integer,ForeignKey('customers.id'))
+
+class Customer(Base):
+
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(45))
+    last_name = Column(String(45))
+    phone_number = Column(String(15))
+    genre = Column(String(45))
+    document_id = Column(String(45))
+    birth_date = Column(DateTime())
+    user_id = Column(Integer,ForeignKey('users.id'))
     
 
     

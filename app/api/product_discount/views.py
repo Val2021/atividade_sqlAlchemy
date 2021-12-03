@@ -16,10 +16,9 @@ router = APIRouter()
 
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
-def create(product_discount: ProductDiscountSchema, repository: ProductDiscountRepository = Depends(), service:ProductDiscountService = Depends()):
+def create(product_discount: ProductDiscountSchema, service:ProductDiscountService = Depends()):
     service.create_discount(product_discount.product_id,product_discount.payment_method_id)
-    repository.create(ProductDiscount(**product_discount.dict()))
-    
+   
     
 @router.get('/',response_model=List[ShowProductDiscountSchema])
 def index(repository: ProductDiscountRepository = Depends()):

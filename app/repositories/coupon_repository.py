@@ -7,3 +7,11 @@ from .base_repository import BaseRepository
 class CouponRepository(BaseRepository):
     def __init__(self, session: Session = Depends(get_db)):
         super().__init__(session, Coupon)
+    
+    def has_coupon(self, code):
+        query = self.session.query(self.model).filter_by(code=code).first()
+        return query != None
+    
+   
+    
+

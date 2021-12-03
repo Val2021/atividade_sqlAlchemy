@@ -1,6 +1,6 @@
 
 from fastapi import  Depends,status,HTTPException
-from app.models.models import PaymentMethod, ProductDiscount
+from app.models.models import  ProductDiscount
 from app.repositories.payment_method_repository import PaymentMethodRepository
 from app.repositories.product_discount_repository import ProductDiscountRepository
 from app.api.product_discount.schemas import ProductDiscountSchema
