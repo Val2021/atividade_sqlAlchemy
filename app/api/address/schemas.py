@@ -14,5 +14,5 @@ class AddressSchema(BaseModel):
 class ShowAddressSchema(AddressSchema):
 
     id: int
-    class Config:
+    class Config: #para conseguir fazer um cast de objetos de sqlalchemy para objetos de pydantic
         orm_mode = True

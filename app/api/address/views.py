@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends,status
 from app.models.models import Address
+from app.services.address_service import AddressService
 from .schemas import AddressSchema, ShowAddressSchema
 from app.repositories.address_repository import AddressRepository
 from fastapi.exceptions import HTTPException
@@ -9,8 +10,8 @@ from  typing import List
 router = APIRouter()
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
-def create(address: AddressSchema,repository: AddressRepository = Depends()):
-    repository.create(Address(**address.dict()))
+def create(address: AddressSchema,service: AddressService = Depends()):
+    service.create_address(address)
 
 
 @router.get('/',response_model=List[ShowAddressSchema])

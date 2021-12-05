@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -8,7 +9,7 @@ class UpdateCustomerSchema(BaseModel):
     last_name :str
     phone_number : str
     genre : str
-    birth_date :str
+    # birth_date :datetime
     # user_id :int
 
 class CustomerSchema(UpdateCustomerSchema):

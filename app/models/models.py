@@ -69,6 +69,20 @@ class Coupon(Base):
     type = Column(String(15))
     value = Column(Float(10,2))
 
+
+
+class Customer(Base):
+
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(45))
+    last_name = Column(String(45))
+    phone_number = Column(String(15))
+    genre = Column(String(45))
+    document_id = Column(String(45))
+    # birth_date = Column(DateTime())
+    # user_id = Column(Integer,ForeignKey('users.id'))
+
 class Address(Base):
 
     __tablename__='addresses'
@@ -82,18 +96,6 @@ class Address(Base):
     neighbourhood:Column(String(45))
     primary:Column(Boolean, default=True)
     customer_id:Column(Integer,ForeignKey('customers.id'))
-
-class Customer(Base):
-
-    __tablename__ = 'customers'
-    id = Column(Integer, primary_key=True)
-    first_name = Column(String(45))
-    last_name = Column(String(45))
-    phone_number = Column(String(15))
-    genre = Column(String(45))
-    document_id = Column(String(45))
-    birth_date = Column(DateTime())
-    # user_id = Column(Integer,ForeignKey('users.id'))
     
 
     
