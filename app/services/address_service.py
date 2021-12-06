@@ -14,10 +14,9 @@ class AddressService:
         self. address_repository = address_repository
 
     def create_address(self, address: AddressSchema):
-        print("address",address)
-        customer_address = self.address_repository.has_customer_id(address.customer_id)
-        print("customer",customer_address)
-        if customer_address:
-            self.address_repository.update(customer_address.id,primary = False)
+        if address.primary == True:
+            customer_address = self.address_repository.has_customer_id(address.customer_id)
+            if customer_address:
+                self.address_repository.update(customer_address.id,{"primary":False})
 
         self.address_repository.create(Address(**address.dict()))

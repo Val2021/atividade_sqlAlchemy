@@ -10,5 +10,5 @@ class AddressRepository(BaseRepository):
 
 
     def has_customer_id(self, id):
-            query = self.session.query(self.model).filter_by(id=id,primary = True).first()
-            return query 
+        query = self.session.query(self.model).filter_by(id=id,primary = True).first()
+        return query 

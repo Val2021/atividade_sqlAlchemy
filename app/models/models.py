@@ -1,6 +1,7 @@
+
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
-from sqlalchemy.sql.sqltypes import Boolean, DateTime, Float, Integer, String
+from sqlalchemy.sql.sqltypes import Boolean, DateTime,Date, Float, Integer, String
 from app.db.db import Base
 from sqlalchemy import Column
 
@@ -80,7 +81,7 @@ class Customer(Base):
     phone_number = Column(String(15))
     genre = Column(String(45))
     document_id = Column(String(45))
-    # birth_date = Column(DateTime())
+    birth_date = Column(Date)
     # user_id = Column(Integer,ForeignKey('users.id'))
 
 class Address(Base):
@@ -88,14 +89,14 @@ class Address(Base):
     __tablename__='addresses'
     
     id = Column(Integer, primary_key=True)
-    address: Column(String(255))
-    city:Column(String(45))
-    state:Column(String(2))
-    number:Column(String(10))
-    zipcode:Column(String(6))
-    neighbourhood:Column(String(45))
-    primary:Column(Boolean, default=True)
-    customer_id:Column(Integer,ForeignKey('customers.id'))
+    address =  Column(String(255))
+    city = Column(String(45))
+    state = Column(String(2))
+    number = Column(String(10))
+    zipcode = Column(String(6))
+    neighbourhood = Column(String(45))
+    primary = Column(Boolean, default=True)
+    customer_id = Column(Integer,ForeignKey('customers.id'))
     
 
     
