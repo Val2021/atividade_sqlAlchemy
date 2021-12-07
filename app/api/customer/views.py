@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends,status
 from app.models.models import Customer
-from .schemas import CustomerSchema, ShowCustomerSchema, UpdateCustomerSchema
+from app.services.customer_service import CustomerService
+from .schemas import CreateCustomerSchema, ShowCustomerSchema, UpdateCustomerSchema
 from app.repositories.customer_repository import CustomerRepository
 from  typing import List
 
@@ -8,8 +9,9 @@ from app.services.auth_service import get_user, only_admin
 router = APIRouter(dependencies=[Depends(only_admin)])
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
-def create(customer: CustomerSchema,repository: CustomerRepository = Depends()):
-    repository.create(Customer(**customer.dict()))
+def create(customer:CreateCustomerSchema,customer_service:CustomerService = Depends()):
+    customer_service.create_customer(customer)
+    
 
 
 @router.get('/',response_model=List[ShowCustomerSchema])

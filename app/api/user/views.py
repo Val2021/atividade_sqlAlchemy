@@ -11,10 +11,9 @@ from app.services.auth_service import get_user, only_admin
 router = APIRouter(dependencies=[])
 
 @router.post('/')
-def create(user: UserSchema, service: UserService = Depends()): ### esta dando pau
+def create(user: UserSchema, service: UserService = Depends()): 
     service.create_user(user.email,user)
-    # user.password = bcrypt.hashpw(
-    #     user.password.encode('utf8'), bcrypt.gensalt()) #colocar no serviço 
+   
     
 
 @router.get('/')

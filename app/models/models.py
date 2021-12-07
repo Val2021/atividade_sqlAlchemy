@@ -82,7 +82,7 @@ class Customer(Base):
     genre = Column(String(45))
     document_id = Column(String(45))
     birth_date = Column(Date)
-    # user_id = Column(Integer,ForeignKey('users.id'))
+    user_id = Column(Integer,ForeignKey('users.id'))
 
 class Address(Base):
 
@@ -102,7 +102,7 @@ class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     display_name = Column(String(100))
-    email = Column(String(50))
+    email = Column(String(50)) ### perguntar sobre unique
     role = Column(String(10))
     password = Column(String(100))
 
