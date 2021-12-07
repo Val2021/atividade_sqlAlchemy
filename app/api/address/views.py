@@ -6,8 +6,10 @@ from app.repositories.address_repository import AddressRepository
 from fastapi.exceptions import HTTPException
 from  typing import List
 
+from app.services.auth_service import get_user, only_admin
+router = APIRouter(dependencies=[Depends(only_admin)])
 
-router = APIRouter()
+
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
 def create(address: AddressSchema,service: AddressService = Depends()):

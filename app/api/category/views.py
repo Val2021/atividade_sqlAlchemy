@@ -4,8 +4,8 @@ from .schemas import CategorySchema, ShowCategorySchema
 from app.repositories.category_repository import CategoryRepository
 from  typing import List
 
-
-router = APIRouter()
+from app.services.auth_service import get_user, only_admin
+router = APIRouter(dependencies=[Depends(only_admin)])
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
 def create(category: CategorySchema, repository: CategoryRepository = Depends()):

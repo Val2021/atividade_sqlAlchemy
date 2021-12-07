@@ -4,8 +4,8 @@ from .schemas import SupplierSchema, ShowSupplierSchema
 from app.repositories.supplier_repository import SupplierRepository
 from  typing import List
 
-
-router = APIRouter()
+from app.services.auth_service import get_user, only_admin
+router = APIRouter(dependencies=[Depends(only_admin)])
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
 def create(supplier: SupplierSchema,repository: SupplierRepository = Depends()):

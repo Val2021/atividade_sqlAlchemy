@@ -4,7 +4,10 @@ from .schemas import ProductSchema, ShowProductSchema
 from app.repositories.product_repository import ProductRepository
 from  typing import List
 
-router = APIRouter()
+from app.services.auth_service import get_user, only_admin
+
+router = APIRouter(dependencies=[Depends(only_admin)])
+
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
 def create(product: ProductSchema, repository: ProductRepository = Depends()):

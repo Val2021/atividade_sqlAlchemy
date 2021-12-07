@@ -97,6 +97,18 @@ class Address(Base):
     neighbourhood = Column(String(45))
     primary = Column(Boolean, default=True)
     customer_id = Column(Integer,ForeignKey('customers.id'))
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    display_name = Column(String(100))
+    email = Column(String(50))
+    role = Column(String(10))
+    password = Column(String(100))
+
+
+
+
     
 
     
