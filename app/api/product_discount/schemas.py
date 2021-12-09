@@ -12,8 +12,6 @@ class DiscountMode(str,Enum):
     VALUE = 'value'
     PERCENTAGEM = 'percentage'
 
-
-
 class ProductDiscountSchema(BaseModel):
     mode: DiscountMode
     value: float

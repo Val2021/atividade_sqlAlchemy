@@ -11,6 +11,7 @@ from.payment_method.views import router as payment_method_router
 from .seed import router as seed_router
 from .auth.views import router as auth_router
 from .user.views import router as user_router
+from .order.views import router as order_router
 
 router = APIRouter()
 
@@ -27,3 +28,4 @@ router.include_router(coupon_router,prefix='/coupon',tags=['coupon'])
 router.include_router(seed_router, tags=['seed'])
 router.include_router(auth_router, prefix='/auth', tags=['auth'])
 router.include_router(user_router, prefix='/users', tags=['users'])
+router.include_router(order_router, prefix='/orders', tags=['order'])

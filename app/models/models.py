@@ -1,11 +1,20 @@
 
+import enum
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.sql.sqltypes import Boolean, DateTime,Date, Float, Integer, String
 from app.db.db import Base
 from sqlalchemy import Column
+from enum import Enum
 
-
+class OrderStatusType(Enum):
+    ORDER_PLACED = 'ORDER PLACED'
+    ORDED_PAID =  'ORDED PAID'
+    ORDER_SHIPPED =  'ORDER SHIPPED'
+    ORDER_RECEIVED= 'ORDER RECEIVED'
+    ORDER_COMPLETED ='ORDER COMPLETED'
+    ORDER_CANCELLED = 'ORDER CANCELLED'
+    
     
 
 class Supplier(Base):
@@ -107,7 +116,33 @@ class User(Base):
     password = Column(String(100))
 
 
+class Order(Base):
+    __tablename__ = 'orders'
 
+    id = Column(Integer, primary_key=True)
+    number = Column(String(10))
+    status = Column(String(15))
+    customer_id = Column(Integer, ForeignKey('customers.id'))
+    created_at = Column(DateTime)
+    address_id = Column(Integer, ForeignKey('addresses.id'))
+    total_value = Column(Float(10, 2))
+    payment_method_id = Column(Integer, ForeignKey('payment_methods.id'))
+    total_discount = Column(Float(10, 2))
+
+class OrderStatus(Base):
+
+    __tablename__ = 'orderstatus'
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'))
+    status =   Column(String(15))
+    created_at = Column(DateTime)
+
+class OrderProduct(Base):
+    __tablename__ = 'orderproducts'
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'))
+    product_id = Column(Integer,ForeignKey('products.id'))
+    quantity = Column(Integer)
 
     
 
