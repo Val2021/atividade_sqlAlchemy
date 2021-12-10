@@ -31,7 +31,7 @@ def show(id:int, repository: CouponRepository = Depends()):
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_coupon(id: int,repository: CouponRepository = Depends()):
-    result=repository.delete(id)
+    result=repository.remove(id)
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail = f'Coupon com o id:{id} não encontrado')

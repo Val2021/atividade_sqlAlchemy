@@ -29,7 +29,7 @@ def update(id:int,user:UserSchema,service: UserService = Depends()):
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_user(id: int,repository: UserRepository = Depends()):
-    result=repository.delete(id)
+    result=repository.remove(id)
     if not result:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail = f'O usuário com :{id} não encontrado')

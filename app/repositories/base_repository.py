@@ -1,10 +1,15 @@
 from app.models.models import Base
+from sqlalchemy.orm import Session
 
 
 class BaseRepository:
     def __init__(self, session, model):
         self.session = session
         self.model = model
+    
+    ##neww
+    def query(self):
+        return self.session.query(self.model)
 
     def get_all(self):
         return self.session.query(self.model).all()
@@ -22,6 +27,10 @@ class BaseRepository:
     def get_by_id(self, id: int):
         return self.session.query(self.model).filter_by(id=id).first()
     
-    def delete(self,id:int):
-        self.session.query(self.model).filter_by(id=id).delete()
-        self.session.commit()
+    # def delete(self,id:int):
+    #     self.session.query(self.model).filter_by(id=id).delete()
+    #     self.session.commit()
+
+    ##new
+    def filter(self, args):
+        return self.query().filter_by(**args).all()
