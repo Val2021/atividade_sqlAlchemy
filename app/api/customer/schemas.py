@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 
 class CustomerUserSchema(BaseModel):
+    display_name: str
     email: str
     password: str
 
@@ -12,7 +13,8 @@ class BaseCustomerSchema(BaseModel):
     phone_number : str
     genre : str
     birth_date : date
-    user :  CustomerUserSchema
+    user : CustomerUserSchema
+
 
 
 
@@ -31,5 +33,6 @@ class ShowCustomerSchema(BaseModel):
     phone_number : str
     genre : str
     birth_date : date
+    user_id: str
     class Config:
         orm_mode = True

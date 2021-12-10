@@ -6,7 +6,7 @@ from  typing import List
 
 from app.services.auth_service import get_user, only_admin
 
-router = APIRouter(dependencies=[Depends(only_admin)])
+router = APIRouter(dependencies=[])
 
 
 @router.post('/',status_code=status.HTTP_201_CREATED)

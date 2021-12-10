@@ -17,19 +17,26 @@ class UserService:
         email_DB = self.user_repository.find_by_email(email)
         if  email_DB:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ja existe um email para esse usuário")
+        
         user.password = bcrypt.hashpw(
-        user.password.encode('utf8'), bcrypt.gensalt())
+            user.password.encode('utf8'), bcrypt.gensalt()
+        )
+        
         self.user_repository.create(User(**user.dict())) 
 
     def create_customer_user(self, customer:CustomerUserSchema):
         email_DB = self.user_repository.find_by_email(customer.email)
+        
         if  email_DB:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ja existe um email para esse usuário")
-        customer.password = bcrypt.hashpw(
-        customer.password.encode('utf8'), bcrypt.gensalt())
+        
+        customer.password = str(bcrypt.hashpw(
+            customer.password.encode('utf8'), bcrypt.gensalt()
+        ))
+        
         customer_data = customer.dict()
         customer_data.update({"role":"customer"})
-        self.user_repository.create(User(**customer_data)) 
+        return self.user_repository.create(User(**customer_data)) 
 
 
 

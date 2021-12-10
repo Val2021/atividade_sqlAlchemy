@@ -26,7 +26,7 @@ class OrderStatusSchema(BaseModel):
     status:OrderStatusType
 
 class ShowOrderStatusSchema(OrderStatusSchema):
-    id:int
+    order_id:int
     created_at: datetime
     class Config:
         orm_mode = True

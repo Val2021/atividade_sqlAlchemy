@@ -54,6 +54,8 @@ class Product(Base):
     category = relationship(Category)
     supplier_id = Column(Integer,ForeignKey('suppliers.id'))
     supplier = relationship(Supplier)
+    created_at = Column(DateTime)
+    discounts = relationship('ProductDiscount')
 
 class ProductDiscount(Base):
 
@@ -78,20 +80,7 @@ class Coupon(Base):
     limit = Column(Integer())
     type = Column(String(15))
     value = Column(Float(10,2))
-
-
-
-class Customer(Base):
-
-    __tablename__ = 'customers'
-    id = Column(Integer, primary_key=True)
-    first_name = Column(String(45))
-    last_name = Column(String(45))
-    phone_number = Column(String(15))
-    genre = Column(String(45))
-    document_id = Column(String(45))
-    birth_date = Column(Date)
-    user_id = Column(Integer,ForeignKey('users.id'))
+    
 
 class Address(Base):
 
@@ -107,6 +96,7 @@ class Address(Base):
     primary = Column(Boolean, default=True)
     customer_id = Column(Integer,ForeignKey('customers.id'))
 
+
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
@@ -114,6 +104,21 @@ class User(Base):
     email = Column(String(50)) ### perguntar sobre unique
     role = Column(String(10))
     password = Column(String(100))
+
+
+
+class Customer(Base):
+
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String(45))
+    last_name = Column(String(45))
+    phone_number = Column(String(15))
+    genre = Column(String(45))
+    document_id = Column(String(45))
+    birth_date = Column(Date)
+    user_id = Column(Integer,ForeignKey('users.id'))
+    user = relationship(User)
 
 
 class Order(Base):

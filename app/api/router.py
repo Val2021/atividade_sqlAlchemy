@@ -23,9 +23,11 @@ router.include_router(category_router,prefix='/category',tags=['category'])
 router.include_router(address_router,prefix='/address',tags=['address'])
 router.include_router(customer_router,prefix='/customer',tags=['customer'])
 router.include_router(coupon_router,prefix='/coupon',tags=['coupon'])
+from .catalogo.views import router as catalog_router
 
 
 router.include_router(seed_router, tags=['seed'])
 router.include_router(auth_router, prefix='/auth', tags=['auth'])
 router.include_router(user_router, prefix='/users', tags=['users'])
 router.include_router(order_router, prefix='/orders', tags=['order'])
+router.include_router(catalog_router, prefix='/catalog', tags=['catalog'])

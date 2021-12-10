@@ -1,20 +1,26 @@
 from fastapi import APIRouter,Depends
 
 from app.repositories.order_repository import OrderRepository
-from .schemas import OrderSchema, ShowOrderStatusSchema
+from app.services.order_service import OrderService
+from .schemas import OrderSchema, OrderStatusSchema, ShowOrderStatusSchema
 
 router = APIRouter()
 
 from app.services.auth_service import get_customer_user
 router = APIRouter(dependencies=[])
 
-@router.post('/')
-def create(order: OrderSchema,customer = Depends(get_customer_user)):
-    return order
+# @router.post('/')
+# def create(order: OrderSchema,customer = Depends(get_customer_user), service:OrderService = Depends() ):
+#     service.create_order(order)
 
-# @router.put('/{id}')
-# def update(id:int,orderstatus:OrderSchema,repository: CategoryRepository = Depends()):
-#     repository.update(id,category.dict())
+@router.post('/')
+def create(order: OrderSchema, service:OrderService = Depends() ):
+    service.create_order(order)
+
+@router.put('/{id}')
+def update(id:int, orderstatus:OrderStatusSchema, order_repository:OrderRepository = Depends()):
+    order_repository.create_order_product(id, orderstatus.dict())
+    
 
 
 @router.get('/')
