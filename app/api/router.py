@@ -23,7 +23,7 @@ router.include_router(category_router,prefix='/category',tags=['category'])
 router.include_router(address_router,prefix='/address',tags=['address'])
 router.include_router(customer_router,prefix='/customer',tags=['customer'])
 router.include_router(coupon_router,prefix='/coupon',tags=['coupon'])
-from .catalogo.views import router as catalog_router
+from .catalog.views import router as catalog_router
 
 
 router.include_router(seed_router, tags=['seed'])

@@ -18,10 +18,10 @@ class ProductDiscountService:
         if not self.payment_method_repository.is_enabled(discount.payment_method_id):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Não poderá ser criado o desconto para essa forma de pagamento")
 
-        if not self.product_discount_repository.have_discount(discount.product_id,discount.payment_method_id):
+        if  self.product_discount_repository.have_discount(discount.product_id,discount.payment_method_id):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ja existe um desconto para essa forma de pagamento")
         
-        self.product_discount_repository.create(ProductDiscount(**discount.dict()))
+        return self.product_discount_repository.create(ProductDiscount(**discount.dict()))
 
 
 

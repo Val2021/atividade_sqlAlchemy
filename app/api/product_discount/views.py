@@ -8,16 +8,18 @@ from .schemas import ShowProductDiscountSchema, ProductDiscountSchema
 from sqlalchemy.orm import Session
 from  typing import List
 
-router = APIRouter()
 
+from app.services.auth_service import get_user, only_admin
 
-# def check_payment_method(product_discount: ProductDiscountSchema,db:Session =Depends(get_db)):
+# router = APIRouter()
+
+router = APIRouter(dependencies=[Depends(only_admin)])
 
 
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
 def create(product_discount: ProductDiscountSchema, service:ProductDiscountService = Depends()):
-    service.create_discount(product_discount.product_id,product_discount.payment_method_id)
+    return service.create_discount(product_discount)
    
     
 @router.get('/',response_model=List[ShowProductDiscountSchema])
@@ -26,7 +28,7 @@ def index(repository: ProductDiscountRepository = Depends()):
 
 @router.put('/{id}')
 def update(id:int,product_discount:ProductDiscountSchema,repository: ProductDiscountRepository = Depends()):
-    repository.update(id,product_discount.dict())
+    return repository.update(id,product_discount.dict())
 
 
 @router.get('/{id}')

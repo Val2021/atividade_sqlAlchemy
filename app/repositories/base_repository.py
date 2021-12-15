@@ -18,11 +18,12 @@ class BaseRepository:
         self.session.add(model)
         self.session.commit()
         self.session.refresh(model)
-        return model.id
+        return model
 
     def update(self, id: int, attributes: dict):
-        self.session.query(self.model).filter_by(id=id).update(attributes)
+        self.query().filter_by(id=id).update(attributes)
         self.session.commit()
+        return self.query().filter_by(id=id).first()
 
     def get_by_id(self, id: int):
         return self.session.query(self.model).filter_by(id=id).first()
@@ -34,3 +35,7 @@ class BaseRepository:
     ##new
     def filter(self, args):
         return self.query().filter_by(**args).all()
+    
+    def remove(self, id):
+        self.query().filter_by(id=id).delete()
+        self.session.commit()

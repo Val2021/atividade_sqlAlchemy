@@ -32,6 +32,8 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(45))
 
+    
+
 class PaymentMethod(Base):
 
     __tablename__='payment_methods'
@@ -55,7 +57,7 @@ class Product(Base):
     supplier_id = Column(Integer,ForeignKey('suppliers.id'))
     supplier = relationship(Supplier)
     created_at = Column(DateTime)
-    discounts = relationship('ProductDiscount')
+    # discounts = relationship('ProductDiscount')
 
 class ProductDiscount(Base):
 
@@ -65,7 +67,7 @@ class ProductDiscount(Base):
     mode = Column(String(45))
     value = Column(Float(10,2))
     product_id = Column(Integer,ForeignKey('products.id'))
-    product = relationship(Product)
+    product = relationship(Product, backref='discounts')
     payment_method_id = Column(Integer,ForeignKey('payment_methods.id'))
     payment_method = relationship(PaymentMethod)
 

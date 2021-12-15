@@ -41,7 +41,7 @@ class UserService:
 
 
 
-    def update_user(self,user: UserSchema):
+    def update_user(self,user: UserSchema): ###Ver essa validação
         if not   self.user_repository.find_email_id(self.user.id,self.user.email):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ja existe um usuário para esse email")
         user.password = bcrypt.hashpw(
