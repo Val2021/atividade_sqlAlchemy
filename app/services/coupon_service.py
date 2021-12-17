@@ -13,6 +13,6 @@ class CouponService:
     def create_coupon(self, coupon:CouponSchema):
         if self.coupon_repository.has_coupon(coupon.code):
              raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Esse Código ja existe")
-        self.coupon_repository.create(Coupon(**coupon.dict()))
+        return self.coupon_repository.create(Coupon(**coupon.dict()))
     
    

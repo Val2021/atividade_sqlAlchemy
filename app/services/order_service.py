@@ -59,8 +59,8 @@ class OrderService:
         order_id = self.order_repository.create(Order(**order_data)) 
 
         for product in list_order_product:
-            product["order_id"]=order_id
+            product["order_id"]=order_id.id
             self.order_repository.create_order_product(OrderProduct(**product))
 
-        self.order_repository.create_status_order(OrderStatus(**{"order_id": order_id, "status": status, "created_at": datetime.now()}))
+        self.order_repository.create_status_order(OrderStatus(**{"order_id": order_id.id, "status": status, "created_at": datetime.now()}))
         

@@ -11,7 +11,7 @@ class CouponRepository(BaseRepository,CRUDDelete):
     
     def has_coupon(self, code):
         query = self.session.query(self.model).filter_by(code=code).first()
-        return query != None
+        return query 
     #new
     def remove(self, id):
         self.query().filter_by(id=id).delete()

@@ -18,6 +18,9 @@ class OrderRepository(BaseRepository):
     def create_status_order(self, OrderStatus: Base):
         self.session.add(OrderStatus)
         self.session.commit()
+        self.session.refresh(OrderStatus)
+        return OrderStatus
+
 
 
     def update_status_order(self, id: int, attributes: dict):

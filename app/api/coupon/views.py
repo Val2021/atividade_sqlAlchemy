@@ -12,7 +12,7 @@ router = APIRouter(dependencies=[Depends(only_admin)])
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
 def create(coupon:CouponSchema,service:CouponService = Depends()):
-    service.create_coupon(coupon)
+    return service.create_coupon(coupon)
 
 
 @router.get('/',response_model=List[ShowCouponSchema])

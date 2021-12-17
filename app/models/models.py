@@ -84,19 +84,7 @@ class Coupon(Base):
     value = Column(Float(10,2))
     
 
-class Address(Base):
 
-    __tablename__='addresses'
-    
-    id = Column(Integer, primary_key=True)
-    address =  Column(String(255))
-    city = Column(String(45))
-    state = Column(String(2))
-    number = Column(String(10))
-    zipcode = Column(String(6))
-    neighbourhood = Column(String(45))
-    primary = Column(Boolean, default=True)
-    customer_id = Column(Integer,ForeignKey('customers.id'))
 
 
 class User(Base):
@@ -122,6 +110,20 @@ class Customer(Base):
     user_id = Column(Integer,ForeignKey('users.id'))
     user = relationship(User)
 
+class Address(Base):
+
+    __tablename__='addresses'
+    
+    id = Column(Integer, primary_key=True)
+    address =  Column(String(255))
+    city = Column(String(45))
+    state = Column(String(2))
+    number = Column(String(10))
+    zipcode = Column(String(6))
+    neighbourhood = Column(String(45))
+    primary = Column(Boolean, default=True)
+    customer_id = Column(Integer,ForeignKey('customers.id'))
+    customer = relationship(Customer)
 
 class Order(Base):
     __tablename__ = 'orders'
@@ -130,10 +132,13 @@ class Order(Base):
     number = Column(String(10))
     status = Column(String(15))
     customer_id = Column(Integer, ForeignKey('customers.id'))
+    customer = relationship(Customer)
     created_at = Column(DateTime)
     address_id = Column(Integer, ForeignKey('addresses.id'))
+    address = relationship(Address)
     total_value = Column(Float(10, 2))
     payment_method_id = Column(Integer, ForeignKey('payment_methods.id'))
+    payment_method = relationship(PaymentMethod)
     total_discount = Column(Float(10, 2))
 
 class OrderStatus(Base):

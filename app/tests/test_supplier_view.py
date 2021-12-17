@@ -24,7 +24,7 @@ def test_supplier_update(client: TestClient):
     assert response.status_code == 200
     assert response.json()['name'] == 'Supplier alterado'
 
-def test_supplier_show(client: TestClient):
+def test_supplier_show(client: TestClient): ####
     response = client.post('/supplier/', json={
         'name': 'Supplier 1'
     })
