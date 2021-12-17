@@ -23,7 +23,7 @@ def create(order: OrderSchema, service:OrderService = Depends() ):
     return service.create_order(order)
 
 @router.put('/{id}')
-def update(id:int, orderstatus:OrderStatusSchema, order_repository:OrderRepository = Depends()):
+def update(id:int, orderstatus:OrderStatusSchema, order_repository:OrderRepository = Depends()): ## ?????? duvida com o id
     # order_repository.create_order_product(orderstatus)
     order_status = orderstatus.dict()
     order_status["order_id"] = id

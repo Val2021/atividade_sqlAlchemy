@@ -12,9 +12,9 @@ router = APIRouter(dependencies=[Depends(only_admin)])
 
 
 @router.post('/',status_code=status.HTTP_201_CREATED)
-def create(address: AddressSchema,service: AddressService = Depends()):
-    service.create_address(address)
-
+def create(address: AddressSchema,service: AddressService = Depends(),repository: AddressRepository = Depends()):
+    service.validate_address(address)
+    repository.create(Address(**address.dict()))
 
 @router.get('/',response_model=List[ShowAddressSchema])
 def index(repository: AddressRepository = Depends()):
@@ -22,7 +22,8 @@ def index(repository: AddressRepository = Depends()):
 
 
 @router.put('/{id}')
-def update(id:int,address:AddressSchema,repository: AddressRepository = Depends()):
+def update(id:int,address:AddressSchema,repository: AddressRepository = Depends(),service: AddressService = Depends()):
+    service.validate_address(address)
     repository.update(id,address.dict())
 
 @router.get('/{id}')

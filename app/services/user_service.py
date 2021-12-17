@@ -46,7 +46,9 @@ class UserService:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Ja existe um usuário para esse email")
         user.password = bcrypt.hashpw(
         user.password.encode('utf8'), bcrypt.gensalt())
-        self.user_repository.update(User(**user.dict())) 
+        user_id =  self.user_repository.update(User(**user.dict())).id 
+        return user_id
+       
         
 
         

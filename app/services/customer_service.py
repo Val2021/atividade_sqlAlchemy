@@ -13,14 +13,12 @@ class CustomerService:
         self.customer_repository = customer_repository
         self.user_service = user_service
     
-    def create_customer(self, customer:CreateCustomerSchema ):
-        user_id = self.user_service.create_customer_user(customer.user)
-        
+    def replace_user(self, customer:CreateCustomerSchema ):
         customer_data = customer.dict()
         del customer_data["user"]
         customer_data.update({"user_id": user_id})
-        
-        self.customer_repository.create(Customer(**customer_data))
+        return customer_data
+       
         
         
         
